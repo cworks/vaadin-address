@@ -1,0 +1,37 @@
+apply plugin: 'war'
+
+version = '1.0'
+
+compileJava {
+    sourceCompatibility=1.8
+    targetCompatibility=1.8
+}
+
+compileTestJava {
+    sourceCompatibility=1.8
+    targetCompatibility=1.8
+}
+
+configurations {
+    providedRuntime
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url "http://dl.bintray.com/cworks/maven"
+    }
+}
+
+dependencies {
+    compile("com.vaadin:vaadin-server:7.4.5")
+    compile("com.vaadin:vaadin-client-compiled:7.4.5")
+    compile("com.vaadin:vaadin-client:7.4.5")
+    compile("com.vaadin:vaadin-client-compiler:7.4.5")
+    compile("com.vaadin:vaadin-push:7.4.5")
+    compile("com.vaadin:vaadin-themes:7.4.5")
+    providedRuntime("javax.servlet:servlet-api:2.5")
+    providedRuntime("javax.servlet:javax.servlet-api:3.0.1")
+    testCompile("junit:junit:4.11")
+}

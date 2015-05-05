@@ -25,6 +25,7 @@ repositories {
 }
 
 dependencies {
+    compile("commons-beanutils:commons-beanutils:1.9.2")
     compile("com.vaadin:vaadin-server:7.4.5")
     compile("com.vaadin:vaadin-client-compiled:7.4.5")
     compile("com.vaadin:vaadin-client:7.4.5")

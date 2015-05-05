@@ -1,5 +1,7 @@
 package cworks.address.model;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import java.io.Serializable;
 import java.util.Date;
 

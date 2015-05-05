@@ -4,7 +4,12 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Grid;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 import cworks.address.model.Contact;
 import cworks.address.service.ContactService;
 
@@ -12,24 +17,47 @@ import javax.servlet.annotation.WebServlet;
 
 public class AddressBookUI extends UI {
 
+    /**
+     * Servlet bound to this UI
+     */
     @WebServlet(urlPatterns = "/*")
     @VaadinServletConfiguration(ui = AddressBookUI.class, productionMode = false)
-    public static class AddressUIServlet extends VaadinServlet {
+    public static class AddressUIServlet extends VaadinServlet { }
 
-    }
-
+    /**
+     * TextField used to filter the contactList Grid
+     */
     private TextField filter = new TextField();
 
+    /**
+     * Grid used to list Contact(s)
+     */
     private Grid contactList = new Grid();
 
+    /**
+     * Button used to add a new Contact
+     */
     private Button newContact = new Button("New Contact");
 
     /**
      * Custom contact form
      */
-    private ContactForm contactForm = new ContactForm();
+    private ContactForm contactForm;
 
-    private ContactService contactService = ContactService.create();
+    /**
+     * Constructor
+     */
+    public AddressBookUI() {
+        contactForm = new ContactForm();
+        contactForm.addCancelledListener(contact -> {
+            // if cancel event if fired from the form then
+            // we clear the contactList selection
+            contactList.select(null);
+        });
+        contactForm.addSavedListener(contact -> {
+            refreshContacts();
+        });
+    }
 
     @Override
     protected void init(VaadinRequest request) {
@@ -84,7 +112,7 @@ public class AddressBookUI extends UI {
 
     private void refreshContacts(String filter) {
         contactList.setContainerDataSource(new BeanItemContainer<>(
-                Contact.class, contactService.findAll(filter)));
+                Contact.class, ContactService.findAll(filter)));
         contactForm.setVisible(false);
     }
 

@@ -6,12 +6,12 @@ import java.util.List;
 
 public class ContactService {
 
-    public static ContactService create() {
+    public static List<Contact> findAll(String filter) {
+
         return null;
     }
 
-    public List<Contact> findAll(String filter) {
+    public static void save(final Contact contact) {
 
-        return null;
     }
 }

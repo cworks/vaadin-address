@@ -1,5 +1,7 @@
 package cworks.address.ui;
 
+import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.VaadinRequest;
@@ -15,6 +17,8 @@ import cworks.address.service.ContactService;
 
 import javax.servlet.annotation.WebServlet;
 
+@Title("AddressBookUI")
+@Theme("valo")
 public class AddressBookUI extends UI {
 
     /**
@@ -94,7 +98,7 @@ public class AddressBookUI extends UI {
 
     private void buildLayout() {
         HorizontalLayout actions = new HorizontalLayout(filter, newContact);
-        actions.setWidth("100%");
+        actions.setWidth("50%");
         filter.setWidth("100%");
         actions.setExpandRatio(filter, 1);
 
